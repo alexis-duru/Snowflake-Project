@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SNOWFLAKES PAGE{% endblock %}
+
+{% block body %}
+<section class="section">
+    {# <h1>SNOWFLAKES</h1> #}
+    <div class="snowflakes-container">
+    {% for snowflake in snowflakes %}
+            <div class="snowflake">
+                <h3>{{snowflake.name}}</h3>
+                <p>{{snowflake.description}}</p>
+                <p>{{snowflake.createdAt|date('j M à H:i:s')}}</p>
+                <a href="{{ path("app_snowflakes_show", {id:snowflake.id}) }}">Voir en détails</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
