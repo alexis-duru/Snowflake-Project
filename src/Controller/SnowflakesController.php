@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SnowflakesController extends AbstractController
 {
+    /// AFFICHAGE DE TOUS LES ARTICLES ////
+
     /**
      * @Route("/snowflakes", name="app_snowflakes")
      */
@@ -25,6 +27,8 @@ class SnowflakesController extends AbstractController
             // $SnowflakeRepository->findAll(), (chemin identique à $snowflakes)
         ]);
     }
+
+    //// AFFICHAGE D'UN SEUL ARTICLE SINGLE ////
 
     /**
      * @Route("/snowflakes/{id<\d+>}", name="app_snowflakes_show")
@@ -41,6 +45,8 @@ class SnowflakesController extends AbstractController
         ]);
     }
 
+    ///// CREATION DU FORMULAIRE////
+
     /**
      * @Route("/snowflakes/new", name="app_snowflakes_new", methods="GET|POST")
      */
@@ -56,9 +62,10 @@ class SnowflakesController extends AbstractController
 
             $this->addFlash('success', 'Your __entity__ has been created successfully.');
 
-            return $this->redirectToRoute('app_some_route');
+            return $this->redirectToRoute('app_snowflakes');
         }
 
+        //PERMET DE CRER LA VUE DU FORMULAIRE//
         return $this->render('snowflakes/addsnowflake.html.twig', [
             'form' => $form->createView(),
         ]);

@@ -15,7 +15,7 @@ class CreateSnowflakeType extends AbstractType
             ->add('name')
             ->add('luckyNumber')
             ->add('description')
-            ->add('createdAt')
+            // ->add('createdAt')
         ;
     }
 
