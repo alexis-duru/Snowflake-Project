@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SNOWFLAKE SINGLE PAGE{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="snowflakes-container">
+            <div class="snowflake">
+                <h3>{{snowflakes.name}}</h3>
+                <p>{{snowflakes.description}}</p>
+                <p>{{snowflakes.createdAt|date('j M à H:i:s')}}</p>
+            </div>
+    </div>
+</section>
+{% endblock %}
