@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Snowflake;
+use App\Form\CreateSnowflakeType;
 use App\Repository\SnowflakeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,6 +38,29 @@ class SnowflakesController extends AbstractController
         return $this->render('snowflakes/single.html.twig', [
             'snowflakes' => $snowflake,
             // $SnowflakeRepository->findAll(), (chemin identique à $snowflakes)
+        ]);
+    }
+
+    /**
+     * @Route("/snowflakes/new", name="app_snowflakes_new", methods="GET|POST")
+     */
+    public function createEntity(EntityManagerInterface $em, Request $request)
+    {
+        $entity = new Snowflake();
+        $form = $this->createForm(CreateSnowflakeType::class, $entity);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+
+            $this->addFlash('success', 'Your __entity__ has been created successfully.');
+
+            return $this->redirectToRoute('app_some_route');
+        }
+
+        return $this->render('snowflakes/addsnowflake.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
