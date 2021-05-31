@@ -31,7 +31,7 @@ class SnowflakesController extends AbstractController
     //// AFFICHAGE D'UN SEUL ARTICLE SINGLE ////
 
     /**
-     * @Route("/snowflakes/{id<\d+>}", name="app_snowflakes_show")
+     * @Route("/snowflakes/{id<\d+>}", name="app_snowflakes_show", methods="GET")
      *
      * @param mixed $id
      */
@@ -69,5 +69,18 @@ class SnowflakesController extends AbstractController
         return $this->render('snowflakes/addsnowflake.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/snowflakes/{id<\d+>}", name="app_snowflakes_delete", methods="DELETE")
+     */
+    public function delete(Snowflake $snowflake, Request $request, EntityManagerInterface $em)
+    {
+        if ($this->isCsrfTokenValid('snowflake_delete'.$snowflake->getId(), $request->request->get('csrf_token'))) {
+            $em->remove($snowflake);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('app_snowflakes');
     }
 }

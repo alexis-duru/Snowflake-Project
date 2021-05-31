@@ -9,6 +9,11 @@
                 <h3>{{snowflakes.name}}</h3>
                 <p>{{snowflakes.description}}</p>
                 <p>{{snowflakes.createdAt|date('j M à H:i:s')}}</p>
+                <form action="{{path("app_snowflakes_delete", {id:snowflakes.id})}}"method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token('snowflake_delete' ~ snowflakes.id)}}">
+                    <input type="submit" value="supprimer ce cornflake">
+                </form>
             </div>
     </div>
 </section>
